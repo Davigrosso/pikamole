@@ -6,7 +6,7 @@ from scipy.stats import binom, poisson
 import numpy as np
 
 # Configuração da página
-st.set_page_config(page_title="dados_panificadora (1).csv", layout="wide")
+st.set_page_config(page_title="atendimentos.csv", layout="wide")
 
 # Função para carregar os dados
 @st.cache_data
