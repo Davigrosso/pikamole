@@ -1,4 +1,4 @@
-import app as st
+import streamlit as st
 import pandas as pd
 import seaborn as sns
 import matplotlib.pyplot as plt
@@ -12,7 +12,7 @@ st.set_page_config(page_title="atendimentos.csv", layout="wide")
 @st.cache_data
 def carregar_dados():
     df = pd.read_csv("atendimentos.csv", sep=';', encoding='latin-1')
-    df.columns = df.columns.str.strip()
+    df.columns = df.columns.str.strip()  # corrigido
     return df
 
 # Carregar os dados
@@ -116,7 +116,7 @@ else:
     # Gráfico de distribuição binomial
     probs_binom = [binom.pmf(i, n, p_atestado) for i in range(n+1)]
     fig_b, ax_b = plt.subplots(figsize=(5, 3))
-    bars = ax_b.bar(range(n+1), probs_binom, color=["gray" if i < k else "orange" for i in range(n+1)])
+    ax_b.bar(range(n+1), probs_binom, color=["gray" if i < k else "orange" for i in range(n+1)])
     ax_b.set_xlabel("Número de Atestados")
     ax_b.set_ylabel("Probabilidade")
     st.pyplot(fig_b)
@@ -137,7 +137,7 @@ st.write(f"A probabilidade de pelo menos {k_poisson} casos em um turno é **{pro
 max_k = 10
 probs_poisson = [poisson.pmf(i, casos_por_turno) for i in range(max_k+1)]
 fig_p, ax_p = plt.subplots(figsize=(5, 3))
-bars_p = ax_p.bar(range(max_k+1), probs_poisson, color=["gray" if i < k_poisson else "orange" for i in range(max_k+1)])
+ax_p.bar(range(max_k+1), probs_poisson, color=["gray" if i < k_poisson else "orange" for i in range(max_k+1)])
 ax_p.set_xlabel("Número de Casos")
 ax_p.set_ylabel("Probabilidade")
 ax_p.set_title("Distribuição de Poisson")
